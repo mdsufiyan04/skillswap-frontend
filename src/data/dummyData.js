@@ -70,3 +70,35 @@ export const aiMatches = [
 ];
 
 export const stats = { totalUsers: 2847, totalExchanges: 12490, totalSkills: 384, countriesReached: 28 };
+
+export const sampleProjects = [
+  {
+    id: 1,
+    title: "EcoTrack — Carbon Credit Platform",
+    tagline: "Helping cities track and trade carbon credits using blockchain",
+    category: "Tech",
+    stage: "Building",
+    admin: { name: "Mohammed Sufiyan", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mohammed", college: "MVJ College" },
+    roles: [
+      { id: 1, title: "Blockchain Developer", skillsNeeded: "Solidity, Web3.js", filled: false },
+      { id: 2, title: "UI Designer", skillsNeeded: "Figma, UI/UX Design", filled: true },
+    ],
+    members: [],
+    githubUrl: "https://github.com",
+    description: "EcoTrack is a blockchain-based carbon credit platform that allows urban green spaces to tokenize their carbon absorption and trade credits with corporations.",
+  },
+  {
+    id: 2,
+    title: "SkillSwap Mobile App",
+    tagline: "React Native version of SkillSwap for iOS and Android",
+    category: "Tech",
+    stage: "Idea",
+    admin: { name: "Arjun Sharma", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun", college: "IIT Bombay" },
+    roles: [
+      { id: 3, title: "React Native Developer", skillsNeeded: "React Native, Expo", filled: false },
+      { id: 4, title: "Backend Developer", skillsNeeded: "Node.js, PostgreSQL", filled: false },
+    ],
+    members: [],
+    description: "Building a mobile version of SkillSwap so students can exchange skills on the go.",
+  },
+];

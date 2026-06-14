@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
 import LandingPage from './pages/LandingPage';
@@ -14,6 +15,10 @@ import MyProfile from './pages/MyProfile';
 import Requests from './pages/Requests';
 import Chat from './pages/Chat';
 import ExchangeDetail from './pages/ExchangeDetail';
+import Projects from './pages/Projects';
+import NewProject from './pages/NewProject';
+import ProjectDetail from './pages/ProjectDetail';
+import MyProjects from './pages/MyProjects';
 
 function App() {
   return (
@@ -33,6 +38,10 @@ function App() {
               <Route path="/requests" element={<Requests />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/exchange/:id" element={<ExchangeDetail />} />
+              <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+              <Route path="/projects/new" element={<ProtectedRoute><NewProject /></ProtectedRoute>} />
+              <Route path="/projects/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
+              <Route path="/my-projects" element={<ProtectedRoute><MyProjects /></ProtectedRoute>} />
             </Routes>
           </main>
           <Toaster 

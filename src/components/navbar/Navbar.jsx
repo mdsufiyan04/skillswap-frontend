@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Bell, User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Bell, User, LogOut, Settings, ChevronDown, FolderOpen } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
@@ -36,6 +36,12 @@ const Navbar = () => {
               className={`text-sm font-medium transition-colors ${isActive('/browse') ? 'text-violet-600' : 'text-gray-500 hover:text-gray-900'}`}
             >
               Browse
+            </Link>
+            <Link 
+              to="/projects" 
+              className={`text-sm font-medium transition-colors ${location.pathname.startsWith('/projects') || isActive('/my-projects') ? 'text-violet-600' : 'text-gray-500 hover:text-gray-900'}`}
+            >
+              Projects
             </Link>
             <Link 
               to="/requests" 
@@ -83,6 +89,12 @@ const Navbar = () => {
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                   >
                     <User className="w-4 h-4" /> My Profile
+                  </button>
+                  <button 
+                    onClick={() => { setShowDropdown(false); navigate('/my-projects'); }}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                  >
+                    <FolderOpen className="w-4 h-4" /> My Projects
                   </button>
                   <button 
                     onClick={() => { setShowDropdown(false); navigate('/settings'); }}

@@ -79,7 +79,7 @@ const Dashboard = () => {
         {/* Stats Row */}
         <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: 'Active Exchanges', value: exchanges.length, icon: <Activity className="w-5 h-5 text-blue-500" /> },
+            { label: 'Active Exchanges', value: exchanges.filter(ex => ex.status === 'active').length, icon: <Activity className="w-5 h-5 text-blue-500" /> },
             { label: 'Pending Requests', value: pendingIncoming.length, icon: <Inbox className="w-5 h-5 text-orange-500" /> },
             { label: 'Skills Offered', value: offeredSkillsCount, icon: <BookOpen className="w-5 h-5 text-green-500" /> },
             { label: 'Rating', value: `${profile.rating}★`, icon: <Star className="w-5 h-5 text-yellow-500" /> }
@@ -134,39 +134,58 @@ const Dashboard = () => {
               <div className="flex justify-between items-end mb-4">
                 <h2 className="text-xl font-bold text-gray-900">Active Exchanges</h2>
               </div>
-              {exchanges.length === 0 ? (
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 text-center text-gray-500">No active exchanges yet.</div>
+              {exchanges.filter(ex => ex.status === 'active').length === 0 ? (
+                <div className="bg-white p-8 rounded-2xl border border-gray-100 text-center">
+                  <p className="text-gray-500 mb-4">No active exchanges yet. Start by browsing skills!</p>
+                  <button onClick={() => navigate('/browse')} className="px-6 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-bold hover:shadow-md transition">
+                    Browse Skills
+                  </button>
+                </div>
               ) : (
-                exchanges.map((ex, i) => (
-                  <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-4">
-                      <img src={ex.user?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=placeholder'} className="w-14 h-14 rounded-full border border-gray-100" />
-                      <div>
-                        <h3 className="font-bold text-gray-900">{ex.user?.name || 'Partner'}</h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="px-2.5 py-1 bg-violet-100 text-violet-700 text-xs font-bold rounded-lg">{ex.user1Skill}</span>
-                          <ArrowRight className="w-3 h-3 text-gray-400" />
-                          <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg">{ex.user2Skill}</span>
+                <div className="space-y-4">
+                  {exchanges.filter(ex => ex.status === 'active').map((ex) => {
+                    const partner = ex.user1Id === user?.id ? ex.user2 : ex.user1;
+                    const me = ex.user1Id === user?.id ? ex.user1 : ex.user2;
+                    return (
+                      <div key={ex.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center -space-x-2">
+                            <img src={me?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${me?.username}`} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" alt="" />
+                            <img src={partner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${partner?.username}`} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" alt="" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-gray-900">{partner?.name || 'Partner'}</h3>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="px-2.5 py-1 bg-violet-100 text-violet-700 text-xs font-bold rounded-lg">{ex.user1Skill}</span>
+                              <ArrowRight className="w-3 h-3 text-gray-400" />
+                              <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg">{ex.user2Skill}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex-1 w-full sm:w-auto px-4">
+                          <div className="flex justify-between text-xs font-medium text-gray-500 mb-2">
+                            <span>Progress</span>
+                            <span>{ex.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-100 rounded-full h-2 mb-2 overflow-hidden">
+                            <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-2 rounded-full" style={{ width: `${ex.progress}%` }}></div>
+                          </div>
+                          <p className="text-xs text-gray-500 text-center">{ex.sessionsCompleted} of {ex.totalSessions} sessions completed</p>
+                        </div>
+
+                        <div className="flex gap-2 w-full sm:w-auto">
+                          <button onClick={() => navigate(`/exchange/${ex.id}`)} className="flex-1 sm:flex-none px-5 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all">
+                            Open Exchange
+                          </button>
+                          <button onClick={() => navigate('/chat')} className="flex-1 sm:flex-none px-5 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                            <MessageSquare className="w-4 h-4" /> Chat
+                          </button>
                         </div>
                       </div>
-                    </div>
-                    
-                    <div className="flex-1 w-full sm:w-auto px-4">
-                      <div className="flex justify-between text-xs font-medium text-gray-500 mb-2">
-                        <span>Progress</span>
-                        <span>{ex.progress}%</span>
-                      </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2 mb-2 overflow-hidden">
-                        <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-2 rounded-full" style={{ width: `${ex.progress}%` }}></div>
-                      </div>
-                      <p className="text-xs text-gray-500 text-center">Next session: {ex.nextSession || 'Not scheduled'}</p>
-                    </div>
-
-                    <button onClick={() => navigate(`/exchange/${ex.id}`)} className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all flex items-center justify-center gap-2">
-                      <MessageSquare className="w-4 h-4" /> Open Chat
-                    </button>
-                  </div>
-                ))
+                    );
+                  })}
+                </div>
               )}
             </motion.section>
 

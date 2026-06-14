@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, UserPlus } from 'lucide-react';
+import { Search, Filter, UserPlus, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/navbar/Navbar';
 import { categories } from '../data/dummyData';
-import { getAllSkills } from '../api/services';
+import { getAllSkills, sendRequest } from '../api/services';
 
 const Browse = () => {
   const navigate = useNavigate();
@@ -14,6 +14,10 @@ const Browse = () => {
 
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [message, setMessage] = useState('');
+  const [requesting, setRequesting] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -26,6 +30,37 @@ const Browse = () => {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [searchTerm, typeFilter, activeCategory]);
+
+  const openRequestModal = (skill) => {
+    setSelectedSkill(skill);
+    setMessage('');
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedSkill(null);
+    setMessage('');
+  };
+
+  const handleSendRequest = async () => {
+    if (!selectedSkill?.user?.id) return;
+    try {
+      setRequesting(true);
+      await sendRequest({
+        toUserId: selectedSkill.user.id,
+        skillId: selectedSkill.id,
+        message: message
+      });
+      alert('Request sent!');
+      closeModal();
+      navigate('/requests');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to send request');
+    } finally {
+      setRequesting(false);
+    }
+  };
 
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -106,7 +141,7 @@ const Browse = () => {
                   <p className="text-sm font-medium text-violet-600 mb-4">{skill.level}</p>
                   
                   <div className="flex items-center gap-3">
-                    <img src={skill.user?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=placeholder'} className="w-10 h-10 rounded-full bg-gray-100" />
+                    <img src={skill.user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${skill.user?.username}`} className="w-10 h-10 rounded-full bg-gray-100" alt="" />
                     <div>
                       <p className="font-semibold text-gray-900 text-sm">{skill.user?.name}</p>
                       <p className="text-xs text-gray-500">{skill.user?.college}</p>
@@ -114,10 +149,18 @@ const Browse = () => {
                   </div>
                 </div>
                 <div className="p-4 bg-gray-50 flex gap-3 mt-auto">
-                  <button onClick={() => navigate(`/profile/${skill.user?.id}`)} className="flex-1 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-100 transition-colors">
+                  <button
+                    onClick={() => navigate(`/profile/${skill.user.id}`)}
+                    disabled={!skill.user?.id}
+                    className="flex-1 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-100 transition-colors disabled:opacity-50"
+                  >
                     View Profile
                   </button>
-                  <button className="flex-1 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all flex items-center justify-center gap-1">
+                  <button
+                    onClick={() => openRequestModal(skill)}
+                    disabled={!skill.user?.id}
+                    className="flex-1 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all flex items-center justify-center gap-1 disabled:opacity-50"
+                  >
                     <UserPlus className="w-4 h-4" /> Request
                   </button>
                 </div>
@@ -126,6 +169,48 @@ const Browse = () => {
           </motion.div>
         )}
       </main>
+
+      {/* Request Modal */}
+      {showModal && selectedSkill && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+              <h3 className="font-bold text-gray-900">Send Request</h3>
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Skill being requested</label>
+                <p className="text-sm font-semibold text-violet-700 bg-violet-50 border border-violet-100 rounded-lg px-3 py-2">
+                  {selectedSkill.name} <span className="text-violet-500 font-normal">• {selectedSkill.level}</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-2">From {selectedSkill.user?.name}</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea
+                  rows="3"
+                  className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-violet-500 outline-none resize-none"
+                  placeholder={`Hi ${selectedSkill.user?.name}, I'd love to learn ${selectedSkill.name}!`}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+              </div>
+
+              <button
+                onClick={handleSendRequest}
+                disabled={requesting}
+                className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+              >
+                {requesting ? 'Sending...' : 'Confirm Send Request'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -21,14 +21,14 @@ export const currentUser = {
 };
 
 export const categories = [
-  { id: 1, name: "Tech", icon: "💻", color: "from-violet-500 to-indigo-500" },
-  { id: 2, name: "Design", icon: "🎨", color: "from-pink-500 to-rose-500" },
-  { id: 3, name: "Music", icon: "🎵", color: "from-yellow-500 to-orange-500" },
-  { id: 4, name: "Languages", icon: "🌍", color: "from-green-500 to-teal-500" },
-  { id: 5, name: "Fitness", icon: "💪", color: "from-red-500 to-rose-500" },
-  { id: 6, name: "Business", icon: "📈", color: "from-blue-500 to-indigo-500" },
-  { id: 7, name: "Arts", icon: "✏️", color: "from-pink-400 to-purple-500" },
-  { id: 8, name: "Cooking", icon: "🍳", color: "from-amber-500 to-yellow-500" },
+  { id: 1, name: "Tech", icon: "💻", color: "bg-apple-bg" },
+  { id: 2, name: "Design", icon: "🎨", color: "bg-apple-bg" },
+  { id: 3, name: "Music", icon: "🎵", color: "bg-apple-bg" },
+  { id: 4, name: "Languages", icon: "🌍", color: "bg-apple-bg" },
+  { id: 5, name: "Fitness", icon: "💪", color: "bg-apple-bg" },
+  { id: 6, name: "Business", icon: "📈", color: "bg-apple-bg" },
+  { id: 7, name: "Arts", icon: "✏️", color: "bg-apple-bg" },
+  { id: 8, name: "Cooking", icon: "🍳", color: "bg-apple-bg" },
 ];
 
 export const users = [
@@ -89,8 +89,8 @@ export const sampleProjects = [
   },
   {
     id: 2,
-    title: "SkillSwap Mobile App",
-    tagline: "React Native version of SkillSwap for iOS and Android",
+    title: "Elevate Mobile App",
+    tagline: "React Native version of Elevate for iOS and Android",
     category: "Tech",
     stage: "Idea",
     admin: { name: "Arjun Sharma", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun", college: "IIT Bombay" },
@@ -99,6 +99,6 @@ export const sampleProjects = [
       { id: 4, title: "Backend Developer", skillsNeeded: "Node.js, PostgreSQL", filled: false },
     ],
     members: [],
-    description: "Building a mobile version of SkillSwap so students can exchange skills on the go.",
+    description: "Building a mobile version of Elevate so students can exchange skills on the go.",
   },
 ];

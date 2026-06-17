@@ -125,8 +125,8 @@ const MyProfile = () => {
 
   if (loading || !profile) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin w-8 h-8 border-4 border-apple-black border-t-transparent rounded-full"></div>
       </div>
     );
   }
@@ -137,151 +137,153 @@ const MyProfile = () => {
   const completion = Math.min(100, 40 + (profile.bio ? 20 : 0) + offerSkills.length * 10 + wantSkills.length * 10);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-800 pb-16">
+    <div className="min-h-screen bg-white text-apple-black font-sans pb-16">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 pt-8">
-        <motion.div initial="hidden" animate="visible" variants={fadeUp} className="bg-violet-100 rounded-xl p-6 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} className="bg-white border border-apple-border rounded-[18px] p-6 mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="w-full md:w-1/2">
-            <h2 className="text-violet-900 font-semibold text-lg mb-2">Profile {completion}% Complete</h2>
-            <div className="h-2 w-full bg-violet-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-violet-500 to-indigo-600 rounded-full" style={{ width: `${completion}%` }}></div>
+            <h2 className="text-[14px] text-apple-gray uppercase tracking-[0.08em] font-semibold mb-3">Profile {completion}% Complete</h2>
+            <div className="h-3 w-full bg-apple-bg border border-apple-border rounded-[980px] overflow-hidden">
+              <div className="h-full bg-apple-black rounded-[980px] transition-all" style={{ width: `${completion}%` }}></div>
             </div>
           </div>
-          <p className="text-violet-700 text-sm font-medium">Add bio and skills to reach 100%</p>
+          <p className="text-[14px] text-apple-gray font-medium">Add bio and skills to reach 100%</p>
         </motion.div>
 
-        <motion.div initial="hidden" animate="visible" variants={fadeUp} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} className="bg-white rounded-[24px] p-8 border border-apple-border mb-12">
           {isEditing ? (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Edit Profile</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-6">
+              <h3 className="text-[28px] font-semibold text-apple-black tracking-[-0.01em]">Edit Profile</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
-                  <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)} className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                  <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Name</label>
+                  <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)} className="w-full p-4 bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black text-[14px] transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Location</label>
-                  <input type="text" value={editLocation} onChange={(e) => setEditLocation(e.target.value)} className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                  <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Location</label>
+                  <input type="text" value={editLocation} onChange={(e) => setEditLocation(e.target.value)} className="w-full p-4 bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black text-[14px] transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">College</label>
-                  <input type="text" value={editCollege} onChange={(e) => setEditCollege(e.target.value)} className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                  <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">College</label>
+                  <input type="text" value={editCollege} onChange={(e) => setEditCollege(e.target.value)} className="w-full p-4 bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black text-[14px] transition-all" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Bio</label>
-                  <textarea value={editBio} onChange={(e) => setEditBio(e.target.value)} className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 h-24" />
+                  <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Bio</label>
+                  <textarea value={editBio} onChange={(e) => setEditBio(e.target.value)} className="w-full p-4 bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black text-[14px] h-32 resize-none transition-all" />
                 </div>
               </div>
-              <div className="flex justify-end gap-3 mt-4">
-                <button onClick={() => setIsEditing(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition">Cancel</button>
-                <button onClick={handleProfileSave} className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg font-medium transition">Save Changes</button>
+              <div className="flex justify-end gap-3 mt-8">
+                <button onClick={() => setIsEditing(false)} className="px-6 py-3 text-apple-gray hover:text-apple-black rounded-[980px] font-medium transition-colors">Cancel</button>
+                <button onClick={handleProfileSave} className="px-6 py-3 bg-apple-black text-white rounded-[980px] font-medium hover:bg-[#333333] transition-colors">Save Changes</button>
               </div>
             </div>
           ) : (
-            <div className="flex flex-col md:flex-row justify-between items-start gap-6">
-              <div className="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
-                <img src={profile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.username}`} alt={profile.name} className="w-24 h-24 rounded-full border-4 border-violet-100" />
+            <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+              <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
+                <img src={profile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.username}`} alt={profile.name} className="w-32 h-32 rounded-full border border-apple-border" />
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">{profile.name}</h1>
-                  <p className="text-gray-600 mt-1">{profile.bio || 'No bio added yet.'}</p>
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-3 text-sm text-gray-500">
-                    <span className="flex items-center gap-1"><MapPin size={16} /> {profile.location || 'Not set'}</span>
-                    <span className="flex items-center gap-1"><GraduationCap size={16} /> {profile.college || 'Not set'}</span>
-                    <span className="flex items-center gap-1"><Calendar size={16} /> Joined {formatDate(profile.createdAt)}</span>
+                  <h1 className="text-[32px] font-bold text-apple-black tracking-[-0.01em]">{profile.name}</h1>
+                  <p className="text-[17px] text-apple-gray mt-2 max-w-xl">{profile.bio || 'No bio added yet.'}</p>
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 mt-4 text-[14px] text-apple-gray">
+                    <span className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {profile.location || 'Not set'}</span>
+                    <span className="flex items-center gap-2"><GraduationCap className="w-4 h-4" /> {profile.college || 'Not set'}</span>
+                    <span className="flex items-center gap-2"><Calendar className="w-4 h-4" /> Joined {formatDate(profile.createdAt)}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-yellow-500 font-semibold mt-4 justify-center md:justify-start">
-                    <Star fill="currentColor" size={18} /><span>{(profile.rating || 0).toFixed(1)}</span>
+                  <div className="flex items-center gap-1.5 text-apple-black font-semibold mt-6 justify-center md:justify-start">
+                    <Star fill="currentColor" className="w-5 h-5" /><span>{(profile.rating || 0).toFixed(1)}</span>
                   </div>
                 </div>
               </div>
-              <button onClick={() => setIsEditing(true)} className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2 border-2 border-violet-600 text-violet-700 hover:bg-violet-50 rounded-lg font-semibold transition">
-                <Edit3 size={18} /> Edit Profile
+              <button onClick={() => setIsEditing(true)} className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 border border-apple-black text-apple-black hover:bg-apple-bg rounded-[980px] font-medium transition-colors">
+                <Edit3 className="w-4 h-4" /> Edit Profile
               </button>
             </div>
           )}
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-1 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-1 space-y-12">
             <motion.section initial="hidden" animate="visible" variants={fadeUp}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-gray-900">Skills I Offer</h3>
-                <button onClick={openOfferForm} className="p-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition" title="Add skill to offer">
-                  <Plus size={18} />
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-[24px] font-semibold text-apple-black tracking-[-0.01em]">Skills I Offer</h3>
+                <button onClick={openOfferForm} className="p-2 border border-apple-black text-apple-black rounded-full hover:bg-apple-bg transition-colors" title="Add skill to offer">
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {offerSkills.map(skill => (
-                  <div key={skill.id} className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl flex justify-between items-center group">
+                  <div key={skill.id} className="bg-apple-bg border border-apple-border p-5 rounded-[18px] flex justify-between items-center group">
                     <div>
-                      <h4 className="font-semibold text-emerald-900">{skill.name}</h4>
-                      <p className="text-emerald-700 text-xs">{skill.category}</p>
-                      {skill.description && <p className="text-emerald-600 text-xs mt-1">{skill.description}</p>}
+                      <h4 className="font-semibold text-apple-black text-[17px]">{skill.name}</h4>
+                      <p className="text-apple-gray text-[12px] uppercase tracking-[0.08em] mt-1">{skill.category}</p>
+                      {skill.description && <p className="text-apple-gray text-[14px] mt-2 leading-relaxed">{skill.description}</p>}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-emerald-800 bg-emerald-200 px-2 py-1 rounded text-xs font-medium">{skill.level}</span>
-                      <button onClick={() => handleDeleteSkill(skill.id)} className="text-red-500 hover:text-red-700 p-1 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16} /></button>
+                    <div className="flex items-center gap-3">
+                      <span className="text-apple-black bg-white border border-apple-border px-3 py-1 rounded-[980px] text-[12px] uppercase tracking-[0.08em] font-medium">{skill.level}</span>
+                      <button onClick={() => handleDeleteSkill(skill.id)} className="text-apple-gray hover:text-apple-black p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 ))}
-                {offerSkills.length === 0 && !showOfferForm && <p className="text-sm text-gray-500">No skills offered yet.</p>}
+                {offerSkills.length === 0 && !showOfferForm && <p className="text-[14px] text-apple-gray">No skills offered yet.</p>}
               </div>
               {showOfferForm && (
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mt-3">
-                  <div className="flex justify-between items-center mb-3">
-                    <h4 className="font-bold text-gray-800">Add Skill to Offer</h4>
-                    <button onClick={resetSkillForm} className="text-gray-400 hover:text-gray-600">
-                      <X size={18} />
+                <div className="bg-white p-6 rounded-[18px] border border-apple-border mt-4">
+                  <div className="flex justify-between items-center mb-6">
+                    <h4 className="font-semibold text-apple-black">Add Skill to Offer</h4>
+                    <button onClick={resetSkillForm} className="text-apple-gray hover:text-apple-black">
+                      <X className="w-5 h-5" />
                     </button>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Skill Name</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Skill Name</label>
                       <input
                         type="text"
                         placeholder="e.g. React, Guitar, Spanish"
                         value={skillName}
                         onChange={(e) => setSkillName(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Category</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Category</label>
                       <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black appearance-none transition-colors"
                       >
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Level</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Level</label>
                       <select
                         value={level}
                         onChange={(e) => setLevel(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black appearance-none transition-colors"
                       >
                         {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Description (optional)</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Description (optional)</label>
                       <input
                         type="text"
                         placeholder="What specifically can you teach or want to learn?"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black transition-colors"
                       />
                     </div>
-                    <div className="flex justify-end gap-2 mt-2">
-                      <button onClick={resetSkillForm} className="px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 rounded-md font-medium">
+                    <div className="flex justify-end gap-2 mt-6">
+                      <button onClick={resetSkillForm} className="px-4 py-2 text-[14px] text-apple-gray hover:text-apple-black rounded-[980px] font-medium transition-colors">
                         Cancel
                       </button>
-                      <button onClick={() => handleAddSkill('offer')} className="px-3 py-1.5 text-sm bg-violet-600 text-white hover:bg-violet-700 rounded-md font-medium">
-                        Add
+                      <button onClick={() => handleAddSkill('offer')} className="px-4 py-2 text-[14px] bg-apple-black text-white hover:bg-[#333333] rounded-[980px] font-medium transition-colors">
+                        Add Skill
                       </button>
                     </div>
                   </div>
@@ -290,83 +292,85 @@ const MyProfile = () => {
             </motion.section>
 
             <motion.section initial="hidden" animate="visible" variants={fadeUp}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-gray-900">Skills I Want</h3>
-                <button onClick={openWantForm} className="p-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition" title="Add skill to want">
-                  <Plus size={18} />
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-[24px] font-semibold text-apple-black tracking-[-0.01em]">Skills I Want</h3>
+                <button onClick={openWantForm} className="p-2 border border-apple-black text-apple-black rounded-full hover:bg-apple-bg transition-colors" title="Add skill to want">
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {wantSkills.map(skill => (
-                  <div key={skill.id} className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex justify-between items-center group">
+                  <div key={skill.id} className="bg-white border border-apple-black p-5 rounded-[18px] flex justify-between items-center group">
                     <div>
-                      <h4 className="font-semibold text-blue-900">{skill.name}</h4>
-                      <p className="text-blue-700 text-xs">{skill.category}</p>
-                      {skill.description && <p className="text-blue-600 text-xs mt-1">{skill.description}</p>}
+                      <h4 className="font-semibold text-apple-black text-[17px]">{skill.name}</h4>
+                      <p className="text-apple-gray text-[12px] uppercase tracking-[0.08em] mt-1">{skill.category}</p>
+                      {skill.description && <p className="text-apple-gray text-[14px] mt-2 leading-relaxed">{skill.description}</p>}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-blue-800 bg-blue-200 px-2 py-1 rounded text-xs font-medium">{skill.level}</span>
-                      <button onClick={() => handleDeleteSkill(skill.id)} className="text-red-500 hover:text-red-700 p-1 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16} /></button>
+                    <div className="flex items-center gap-3">
+                      <span className="text-apple-black bg-apple-bg border border-apple-border px-3 py-1 rounded-[980px] text-[12px] uppercase tracking-[0.08em] font-medium">{skill.level}</span>
+                      <button onClick={() => handleDeleteSkill(skill.id)} className="text-apple-gray hover:text-apple-black p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 ))}
-                {wantSkills.length === 0 && !showWantForm && <p className="text-sm text-gray-500">No skills wanted yet.</p>}
+                {wantSkills.length === 0 && !showWantForm && <p className="text-[14px] text-apple-gray">No skills wanted yet.</p>}
               </div>
               {showWantForm && (
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mt-3">
-                  <div className="flex justify-between items-center mb-3">
-                    <h4 className="font-bold text-gray-800">Add Skill to Want</h4>
-                    <button onClick={resetSkillForm} className="text-gray-400 hover:text-gray-600">
-                      <X size={18} />
+                <div className="bg-white p-6 rounded-[18px] border border-apple-border mt-4">
+                  <div className="flex justify-between items-center mb-6">
+                    <h4 className="font-semibold text-apple-black">Add Skill to Want</h4>
+                    <button onClick={resetSkillForm} className="text-apple-gray hover:text-apple-black">
+                      <X className="w-5 h-5" />
                     </button>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Skill Name</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Skill Name</label>
                       <input
                         type="text"
                         placeholder="e.g. React, Guitar, Spanish"
                         value={skillName}
                         onChange={(e) => setSkillName(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Category</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Category</label>
                       <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black appearance-none transition-colors"
                       >
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Level</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Level</label>
                       <select
                         value={level}
                         onChange={(e) => setLevel(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black appearance-none transition-colors"
                       >
                         {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Description (optional)</label>
+                      <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Description (optional)</label>
                       <input
                         type="text"
                         placeholder="What specifically can you teach or want to learn?"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full p-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="w-full p-3 text-[14px] bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black transition-colors"
                       />
                     </div>
-                    <div className="flex justify-end gap-2 mt-2">
-                      <button onClick={resetSkillForm} className="px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 rounded-md font-medium">
+                    <div className="flex justify-end gap-2 mt-6">
+                      <button onClick={resetSkillForm} className="px-4 py-2 text-[14px] text-apple-gray hover:text-apple-black rounded-[980px] font-medium transition-colors">
                         Cancel
                       </button>
-                      <button onClick={() => handleAddSkill('want')} className="px-3 py-1.5 text-sm bg-violet-600 text-white hover:bg-violet-700 rounded-md font-medium">
-                        Add
+                      <button onClick={() => handleAddSkill('want')} className="px-4 py-2 text-[14px] bg-apple-black text-white hover:bg-[#333333] rounded-[980px] font-medium transition-colors">
+                        Add Skill
                       </button>
                     </div>
                   </div>
@@ -377,32 +381,34 @@ const MyProfile = () => {
 
           <div className="lg:col-span-2">
             <motion.section initial="hidden" animate="visible" variants={fadeUp}>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">My Reviews</h3>
+              <h3 className="text-[28px] font-semibold text-apple-black tracking-[-0.01em] mb-8">My Reviews</h3>
               <div className="space-y-6">
                 {reviews.length === 0 ? (
-                  <p className="text-gray-500 text-sm">No reviews yet.</p>
+                  <div className="bg-white p-8 rounded-[18px] border border-apple-border text-center text-[17px] text-apple-gray">
+                    No reviews yet.
+                  </div>
                 ) : (
                   reviews.map(review => (
-                    <div key={review.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div key={review.id} className="bg-white p-6 rounded-[18px] border border-apple-border">
                       <div className="flex justify-between items-start mb-4">
-                        <div className="flex gap-3 items-center">
-                          <img src={review.author?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${review.author?.username}`} alt={review.author?.name} className="w-12 h-12 rounded-full border border-gray-100" />
+                        <div className="flex gap-4 items-center">
+                          <img src={review.author?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${review.author?.username}`} alt={review.author?.name} className="w-12 h-12 rounded-full border border-apple-border" />
                           <div>
-                            <h4 className="font-bold text-gray-800">{review.author?.name}</h4>
-                            <p className="text-xs text-gray-500">{review.author?.college}</p>
+                            <h4 className="font-semibold text-apple-black text-[14px]">{review.author?.name}</h4>
+                            <p className="text-[14px] text-apple-gray">{review.author?.college}</p>
                           </div>
                         </div>
-                        <span className="text-sm text-gray-400">{formatDate(review.createdAt)}</span>
+                        <span className="text-[12px] text-apple-gray uppercase tracking-[0.08em]">{formatDate(review.createdAt)}</span>
                       </div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="flex text-yellow-400">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex text-apple-black">
                           {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={16} fill={i < review.rating ? 'currentColor' : 'none'} className={i >= review.rating ? 'text-gray-300' : ''} />
+                            <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'fill-current' : 'text-apple-border'}`} />
                           ))}
                         </div>
-                        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Exchanged: {review.skill}</span>
+                        <span className="text-[12px] bg-apple-bg border border-apple-border text-apple-black px-3 py-1 rounded-[980px] font-medium uppercase tracking-[0.08em]">Exchanged: {review.skill}</span>
                       </div>
-                      <p className="text-gray-700">"{review.text}"</p>
+                      <p className="text-[14px] text-apple-gray leading-relaxed">"{review.text}"</p>
                     </div>
                   ))
                 )}

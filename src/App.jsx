@@ -24,20 +24,20 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen font-sans flex flex-col">
+        <div className="min-h-screen font-sans tracking-tight flex flex-col">
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/browse" element={<Browse />} />
-              <Route path="/profile" element={<MyProfile />} />
-              <Route path="/my-profile" element={<MyProfile />} />
-              <Route path="/profile/:id" element={<Profile />} />
-              <Route path="/requests" element={<Requests />} />
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/exchange/:id" element={<ExchangeDetail />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/browse" element={<ProtectedRoute><Browse /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
+              <Route path="/my-profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
+              <Route path="/profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="/requests" element={<ProtectedRoute><Requests /></ProtectedRoute>} />
+              <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+              <Route path="/exchange/:id" element={<ProtectedRoute><ExchangeDetail /></ProtectedRoute>} />
               <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
               <Route path="/projects/new" element={<ProtectedRoute><NewProject /></ProtectedRoute>} />
               <Route path="/projects/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
@@ -47,7 +47,7 @@ function App() {
           <Toaster 
             position="bottom-right" 
             toastOptions={{
-              className: 'bg-white text-gray-900 border border-gray-100 shadow-sm',
+              className: 'bg-white text-apple-black border border-apple-border text-sm font-medium tracking-tight',
             }} 
           />
         </div>

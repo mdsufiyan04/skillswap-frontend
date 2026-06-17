@@ -71,25 +71,30 @@ const Browse = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7FF]">
+    <div className="min-h-screen bg-white text-apple-black font-sans">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
+        <div className="mb-8">
+          <h1 className="text-[48px] font-bold text-apple-black tracking-[-0.02em] leading-tight mb-2">Browse Skills</h1>
+          <p className="text-[17px] text-apple-gray">Find what you need or discover something new.</p>
+        </div>
+
         {/* Top Bar */}
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
           <div className="relative w-full md:w-1/2">
-            <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-apple-gray" />
             <input 
               type="text" 
               placeholder="Search skills or users..." 
-              className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-apple-bg border border-apple-border rounded-[12px] focus:outline-none focus:border-apple-black transition-all text-apple-black placeholder-apple-gray"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="flex w-full md:w-auto gap-4">
             <select 
-              className="flex-1 md:w-48 bg-gray-50 border border-gray-200 text-gray-700 py-2 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className="flex-1 md:w-48 bg-apple-bg border border-apple-border text-apple-black py-3 px-4 rounded-[12px] focus:outline-none focus:border-apple-black appearance-none"
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
             >
@@ -97,17 +102,14 @@ const Browse = () => {
               <option value="Offer">Offering</option>
               <option value="Want">Wanting</option>
             </select>
-            <button className="p-2 bg-gray-50 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-100">
-              <Filter className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
         {/* Category Pills */}
-        <div className="flex gap-3 overflow-x-auto pb-4 mb-4 scrollbar-hide">
+        <div className="flex gap-3 overflow-x-auto pb-4 mb-8 scrollbar-hide">
           <button 
             onClick={() => setActiveCategory('All')}
-            className={`whitespace-nowrap px-5 py-2 rounded-full font-medium transition-all ${activeCategory === 'All' ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
+            className={`whitespace-nowrap px-6 py-2.5 rounded-[980px] font-medium transition-all text-[14px] ${activeCategory === 'All' ? 'bg-apple-black text-white' : 'bg-white text-apple-black border border-apple-border hover:bg-apple-bg'}`}
           >
             All Categories
           </button>
@@ -115,7 +117,7 @@ const Browse = () => {
             <button 
               key={i}
               onClick={() => setActiveCategory(cat.name)}
-              className={`whitespace-nowrap px-5 py-2 rounded-full font-medium transition-all flex items-center gap-2 ${activeCategory === cat.name ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
+              className={`whitespace-nowrap px-6 py-2.5 rounded-[980px] font-medium transition-all text-[14px] flex items-center gap-2 ${activeCategory === cat.name ? 'bg-apple-black text-white' : 'bg-white text-apple-black border border-apple-border hover:bg-apple-bg'}`}
             >
               <span>{cat.icon}</span> {cat.name}
             </button>
@@ -124,44 +126,44 @@ const Browse = () => {
 
         {/* Skills Grid */}
         {loading ? (
-           <div className="flex justify-center py-12">
-             <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full"></div>
+           <div className="flex justify-center py-20">
+             <div className="animate-spin w-8 h-8 border-4 border-apple-black border-t-transparent rounded-full"></div>
            </div>
         ) : (
           <motion.div variants={stagger} initial="hidden" animate="visible" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {skills.map((skill) => (
-              <motion.div variants={fadeUp} key={skill.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all flex flex-col">
-                <div className="p-6 border-b border-gray-50">
+              <motion.div variants={fadeUp} key={skill.id} className="bg-white rounded-[18px] border border-apple-border overflow-hidden hover:-translate-y-1 transition-transform flex flex-col">
+                <div className="p-6 border-b border-apple-border">
                   <div className="flex justify-between items-start mb-4">
-                    <div className={`px-3 py-1 border rounded-lg text-xs font-bold uppercase tracking-wider ${skill.type === 'offer' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-orange-50 text-orange-700 border-orange-100'}`}>
+                    <div className={`px-3 py-1 border rounded-[980px] text-[12px] font-medium uppercase tracking-[0.08em] ${skill.type === 'offer' ? 'bg-apple-bg text-apple-black border-apple-border' : 'bg-white text-apple-gray border-apple-border'}`}>
                       {skill.type === 'offer' ? 'Offering' : 'Wanting'}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{skill.name}</h3>
-                  <p className="text-sm font-medium text-violet-600 mb-4">{skill.level}</p>
+                  <h3 className="text-[24px] font-semibold text-apple-black mb-1">{skill.name}</h3>
+                  <p className="text-[14px] font-medium text-apple-gray mb-6 uppercase tracking-[0.08em]">{skill.level}</p>
                   
-                  <div className="flex items-center gap-3">
-                    <img src={skill.user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${skill.user?.username}`} className="w-10 h-10 rounded-full bg-gray-100" alt="" />
+                  <div className="flex items-center gap-4">
+                    <img src={skill.user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${skill.user?.username}`} className="w-12 h-12 rounded-full border border-apple-border" alt="" />
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm">{skill.user?.name}</p>
-                      <p className="text-xs text-gray-500">{skill.user?.college}</p>
+                      <p className="font-semibold text-apple-black text-[14px]">{skill.user?.name}</p>
+                      <p className="text-[14px] text-apple-gray">{skill.user?.college}</p>
                     </div>
                   </div>
                 </div>
-                <div className="p-4 bg-gray-50 flex gap-3 mt-auto">
+                <div className="p-4 bg-white flex gap-3 mt-auto">
                   <button
                     onClick={() => navigate(`/profile/${skill.user.id}`)}
                     disabled={!skill.user?.id}
-                    className="flex-1 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-100 transition-colors disabled:opacity-50"
+                    className="flex-1 py-3 bg-transparent border border-apple-black text-apple-black rounded-[980px] text-[14px] font-medium hover:bg-apple-bg transition-colors disabled:opacity-50"
                   >
                     View Profile
                   </button>
                   <button
                     onClick={() => openRequestModal(skill)}
                     disabled={!skill.user?.id}
-                    className="flex-1 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all flex items-center justify-center gap-1 disabled:opacity-50"
+                    className="flex-1 py-3 bg-apple-black text-white rounded-[980px] text-[14px] font-medium hover:bg-[#333333] transition-colors disabled:opacity-50"
                   >
-                    <UserPlus className="w-4 h-4" /> Request
+                    Request
                   </button>
                 </div>
               </motion.div>
@@ -172,29 +174,31 @@ const Browse = () => {
 
       {/* Request Modal */}
       {showModal && selectedSkill && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-              <h3 className="font-bold text-gray-900">Send Request</h3>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-[24px] w-full max-w-md overflow-hidden border border-apple-border">
+            <div className="p-6 border-b border-apple-border flex justify-between items-center">
+              <h3 className="text-[19px] font-semibold text-apple-black">Send Request</h3>
+              <button onClick={closeModal} className="text-apple-gray hover:text-apple-black transition-colors">
+                <X className="w-6 h-6" />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Skill being requested</label>
-                <p className="text-sm font-semibold text-violet-700 bg-violet-50 border border-violet-100 rounded-lg px-3 py-2">
-                  {selectedSkill.name} <span className="text-violet-500 font-normal">• {selectedSkill.level}</span>
-                </p>
-                <p className="text-xs text-gray-500 mt-2">From {selectedSkill.user?.name}</p>
+                <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Skill being requested</label>
+                <div className="bg-apple-bg border border-apple-border rounded-[12px] p-4">
+                  <p className="text-[17px] font-semibold text-apple-black">
+                    {selectedSkill.name} <span className="text-apple-gray font-normal ml-2">{selectedSkill.level}</span>
+                  </p>
+                  <p className="text-[14px] text-apple-gray mt-1">From {selectedSkill.user?.name}</p>
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className="block text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">Message</label>
                 <textarea
-                  rows="3"
-                  className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-violet-500 outline-none resize-none"
-                  placeholder={`Hi ${selectedSkill.user?.name}, I'd love to learn ${selectedSkill.name}!`}
+                  rows="4"
+                  className="w-full bg-apple-bg border border-apple-border rounded-[12px] p-4 text-[14px] focus:border-apple-black outline-none resize-none transition-colors"
+                  placeholder={`Hi ${selectedSkill.user?.name}, I'd love to learn ${selectedSkill.name}.`}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
@@ -203,9 +207,9 @@ const Browse = () => {
               <button
                 onClick={handleSendRequest}
                 disabled={requesting}
-                className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                className="w-full py-4 bg-apple-black text-white rounded-[980px] font-medium hover:bg-[#333333] transition-colors disabled:opacity-50"
               >
-                {requesting ? 'Sending...' : 'Confirm Send Request'}
+                {requesting ? 'Sending...' : 'Confirm Request'}
               </button>
             </div>
           </div>

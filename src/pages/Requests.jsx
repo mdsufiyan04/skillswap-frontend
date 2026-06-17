@@ -51,36 +51,36 @@ const Requests = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F7FF]">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin w-8 h-8 border-4 border-apple-black border-t-transparent rounded-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F7FF]">
+    <div className="min-h-screen bg-white text-apple-black font-sans">
       <Navbar />
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Exchange Requests</h1>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-[48px] font-bold text-apple-black tracking-[-0.02em] leading-tight mb-8">Exchange Requests</h1>
 
-        <div className="flex gap-4 border-b border-gray-200 mb-6">
+        <div className="flex gap-6 border-b border-apple-border mb-8">
           <button
             onClick={() => setActiveTab('incoming')}
-            className={`pb-4 px-2 text-sm font-bold relative ${activeTab === 'incoming' ? 'text-violet-600' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`pb-4 px-2 text-[14px] uppercase tracking-[0.08em] font-medium relative ${activeTab === 'incoming' ? 'text-apple-black' : 'text-apple-gray hover:text-apple-black'}`}
           >
             Incoming ({incoming.length})
             {activeTab === 'incoming' && (
-              <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-600" />
+              <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-apple-black" />
             )}
           </button>
           <button
             onClick={() => setActiveTab('outgoing')}
-            className={`pb-4 px-2 text-sm font-bold relative ${activeTab === 'outgoing' ? 'text-violet-600' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`pb-4 px-2 text-[14px] uppercase tracking-[0.08em] font-medium relative ${activeTab === 'outgoing' ? 'text-apple-black' : 'text-apple-gray hover:text-apple-black'}`}
           >
             Outgoing ({outgoing.length})
             {activeTab === 'outgoing' && (
-              <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-600" />
+              <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-apple-black" />
             )}
           </button>
         </div>
@@ -97,43 +97,43 @@ const Requests = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2, delay: i * 0.05 }}
-                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between"
+                  className="bg-white p-6 rounded-[18px] border border-apple-border flex flex-col md:flex-row gap-6 items-start md:items-center justify-between"
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-4">
-                      <img src={otherUser?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${otherUser?.username}`} className="w-12 h-12 rounded-full border border-gray-100" alt="" />
+                      <img src={otherUser?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${otherUser?.username}`} className="w-12 h-12 rounded-full border border-apple-border" alt="" />
                       <div>
-                        <h3 className="font-bold text-gray-900">{otherUser?.name || 'Unknown User'}</h3>
-                        <p className="text-xs text-gray-500 flex items-center gap-1">
+                        <h3 className="font-semibold text-apple-black text-[17px]">{otherUser?.name || 'Unknown User'}</h3>
+                        <p className="text-[12px] text-apple-gray uppercase tracking-[0.08em] flex items-center gap-1 mt-1">
                           <Clock className="w-3 h-3" /> {new Date(req.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="px-3 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-lg text-sm font-medium">
-                        <span className="text-xs text-indigo-400 uppercase mr-1">Target Skill:</span> {req.skill?.name}
+                      <div className="px-3 py-1.5 bg-apple-bg border border-apple-border text-apple-black rounded-[980px] text-[12px] uppercase tracking-[0.08em] font-medium">
+                        <span className="text-apple-gray mr-1">Target Skill:</span> {req.skill?.name}
                       </div>
                     </div>
 
-                    <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-xl italic">"{req.message}"</p>
+                    <p className="text-[14px] text-apple-gray leading-relaxed p-4 rounded-[12px] bg-apple-bg border border-apple-border italic">"{req.message}"</p>
                   </div>
 
                   <div className="w-full md:w-auto">
                     {activeTab === 'incoming' && req.status === 'pending' ? (
-                      <div className="flex flex-col sm:flex-row md:flex-col gap-2">
-                        <button onClick={() => handleAccept(req.id)} className="w-full md:w-32 py-2.5 bg-green-50 hover:bg-green-100 text-green-700 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors">
+                      <div className="flex flex-col sm:flex-row md:flex-col gap-3">
+                        <button onClick={() => handleAccept(req.id)} className="w-full md:w-32 py-3 bg-apple-black text-white hover:bg-[#333333] rounded-[980px] text-[14px] font-medium flex items-center justify-center gap-2 transition-colors">
                           <CheckCircle className="w-4 h-4" /> Accept
                         </button>
-                        <button onClick={() => handleDecline(req.id)} className="w-full md:w-32 py-2.5 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-gray-600 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors">
+                        <button onClick={() => handleDecline(req.id)} className="w-full md:w-32 py-3 bg-white border border-apple-border hover:bg-apple-bg text-apple-black rounded-[980px] text-[14px] font-medium flex items-center justify-center gap-2 transition-colors">
                           <XCircle className="w-4 h-4" /> Decline
                         </button>
                       </div>
                     ) : (
                       <div className="flex items-center justify-center md:justify-end">
-                        {req.status === 'pending' && <span className="px-4 py-2 bg-yellow-50 text-yellow-700 font-bold text-sm rounded-xl flex items-center gap-2"><Clock className="w-4 h-4" /> Pending</span>}
-                        {req.status === 'accepted' && <span className="px-4 py-2 bg-green-50 text-green-700 font-bold text-sm rounded-xl flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Accepted</span>}
-                        {req.status === 'rejected' && <span className="px-4 py-2 bg-red-50 text-red-700 font-bold text-sm rounded-xl flex items-center gap-2"><XCircle className="w-4 h-4" /> Rejected</span>}
+                        {req.status === 'pending' && <span className="px-4 py-2 bg-white border border-apple-border text-apple-gray uppercase tracking-[0.08em] font-medium text-[12px] rounded-[980px] flex items-center gap-2"><Clock className="w-4 h-4" /> Pending</span>}
+                        {req.status === 'accepted' && <span className="px-4 py-2 bg-apple-black text-white uppercase tracking-[0.08em] font-medium text-[12px] rounded-[980px] flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Accepted</span>}
+                        {req.status === 'rejected' && <span className="px-4 py-2 bg-white border border-apple-border text-apple-gray uppercase tracking-[0.08em] font-medium text-[12px] rounded-[980px] flex items-center gap-2 line-through"><XCircle className="w-4 h-4" /> Rejected</span>}
                       </div>
                     )}
                   </div>
@@ -142,7 +142,7 @@ const Requests = () => {
             })}
           </AnimatePresence>
           {currentList.length === 0 && (
-            <div className="text-center py-12 text-gray-500">No requests found.</div>
+            <div className="text-center py-12 text-[17px] text-apple-gray">No requests found.</div>
           )}
         </div>
       </main>

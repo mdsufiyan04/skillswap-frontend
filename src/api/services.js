@@ -1,8 +1,13 @@
 import API from './axios';
+import { retryWithBackoff } from './retry';
 
 // Auth
 export const registerUser = (data) => API.post('/auth/register', data);
-export const loginUser    = (data) => API.post('/auth/login', data);
+export const checkApiHealth = () => API.get('/health');
+export const loginUser    = async (data) => {
+  await retryWithBackoff(() => checkApiHealth(), 3, 1000, 4000);
+  return retryWithBackoff(() => API.post('/auth/login', data), 3, 1200, 5000);
+};
 
 // Users
 export const getMyProfile   = ()     => API.get('/users/me');

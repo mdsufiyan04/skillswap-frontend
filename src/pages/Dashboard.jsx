@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Bell, Sparkles, Activity, Inbox, BookOpen, Star, MessageSquare, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { Sparkles, Activity, Inbox, BookOpen, Star, MessageSquare, CheckCircle, XCircle } from 'lucide-react';
 import Navbar from '../components/navbar/Navbar';
 import { aiMatches } from '../data/dummyData';
 import { getMyProfile, getMyRequests, getMyExchanges } from '../api/services';
@@ -24,7 +24,6 @@ const Dashboard = () => {
           getMyProfile(),
           getMyRequests(),
         ]);
-        // handle getMyExchanges gracefully if endpoint doesn't exist yet
         let exchangesData = [];
         try {
           const exchangesRes = await getMyExchanges();
@@ -53,8 +52,8 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F7FF]">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin w-8 h-8 border-4 border-apple-black border-t-transparent rounded-full"></div>
       </div>
     );
   }
@@ -63,172 +62,150 @@ const Dashboard = () => {
   const offeredSkillsCount = profile.skills?.filter(s => s.type === 'offer').length || 0;
 
   return (
-    <div className="min-h-screen bg-[#F8F7FF]">
+    <div className="min-h-screen bg-white text-apple-black font-sans">
       <Navbar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
         
         {/* Welcome Bar */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Good morning, {profile.name.split(' ')[0]} 👋</h1>
-            <p className="text-gray-500 mt-1">{dateStr}</p>
-          </div>
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-[48px] font-bold text-apple-black tracking-[-0.02em] leading-tight">Good morning, {profile.name.split(' ')[0]}.</h1>
+          <p className="text-[17px] text-apple-gray mt-2">{dateStr}</p>
         </motion.div>
 
         {/* Stats Row */}
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { label: 'Active Exchanges', value: exchanges.filter(ex => ex.status === 'active').length, icon: <Activity className="w-5 h-5 text-blue-500" /> },
-            { label: 'Pending Requests', value: pendingIncoming.length, icon: <Inbox className="w-5 h-5 text-orange-500" /> },
-            { label: 'Skills Offered', value: offeredSkillsCount, icon: <BookOpen className="w-5 h-5 text-green-500" /> },
-            { label: 'Rating', value: `${profile.rating}★`, icon: <Star className="w-5 h-5 text-yellow-500" /> }
+            { label: 'Active Exchanges', value: exchanges.filter(ex => ex.status === 'active').length },
+            { label: 'Pending Requests', value: pendingIncoming.length },
+            { label: 'Skills Offered', value: offeredSkillsCount },
+            { label: 'Rating', value: `${profile.rating}★` }
           ].map((stat, i) => (
-            <motion.div variants={fadeUp} key={i} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-500 text-sm font-medium">{stat.label}</span>
-                <div className="p-2 bg-gray-50 rounded-lg">{stat.icon}</div>
-              </div>
-              <span className="text-3xl font-bold text-gray-900">{stat.value}</span>
+            <motion.div variants={fadeUp} key={i} className="bg-white p-6 rounded-[18px] border border-apple-border flex flex-col justify-between">
+              <span className="text-[32px] md:text-[40px] font-bold text-apple-black leading-none mb-2">{stat.value}</span>
+              <span className="text-[14px] font-medium text-apple-gray uppercase tracking-[0.08em]">{stat.label}</span>
             </motion.div>
           ))}
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        {/* Your Matches */}
+        <motion.section variants={fadeUp} initial="hidden" animate="visible">
+          <div className="flex items-center gap-3 mb-6">
+            <h2 className="text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em]">AI MATCHES</h2>
+            <span className="px-3 py-1 bg-apple-bg border border-apple-border text-apple-black text-[12px] font-medium rounded-full flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> Powered by Gemini
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {aiMatches.slice(0, 3).map((match, i) => (
+              <div key={i} className="bg-white rounded-[18px] border border-apple-border p-6 flex flex-col justify-between hover:-translate-y-1 transition-transform">
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <img src={match.avatar} alt={match.name} className="w-16 h-16 rounded-full border border-apple-border" />
+                    <div className="text-[32px] font-bold text-apple-black leading-none">
+                      {match.matchScore}%
+                    </div>
+                  </div>
+                  <h3 className="font-semibold text-apple-black text-[19px]">{match.name}</h3>
+                  <p className="text-[14px] text-apple-gray mb-4">{match.college}</p>
+                  <p className="text-[14px] text-apple-gray italic leading-relaxed mb-6">"{match.matchReason}"</p>
+                </div>
+                <button onClick={() => navigate(`/profile/${match.id}`)} className="w-full py-3 bg-apple-black text-white font-medium rounded-[980px] hover:bg-[#333333] transition-colors">
+                  Connect
+                </button>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        <div className="grid lg:grid-cols-3 gap-12">
           
-          {/* Main Content Area */}
-          <div className="lg:col-span-2 space-y-8">
+          {/* Active Exchanges */}
+          <div className="lg:col-span-2 space-y-6">
+            <h2 className="text-[28px] font-semibold text-apple-black tracking-[-0.01em]">Active Exchanges</h2>
             
-            {/* AI Matches */}
-            <motion.section variants={fadeUp} initial="hidden" animate="visible">
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Your AI Matches</h2>
-                <span className="px-2.5 py-1 bg-violet-100 text-violet-700 text-xs font-bold rounded-md flex items-center gap-1 uppercase tracking-wide">
-                  <Sparkles className="w-3 h-3" /> Powered by Gemini
-                </span>
+            {exchanges.filter(ex => ex.status === 'active').length === 0 ? (
+              <div className="bg-white p-8 rounded-[18px] border border-apple-border text-center">
+                <p className="text-[17px] text-apple-gray mb-6">No active exchanges yet. Start by browsing skills!</p>
+                <button onClick={() => navigate('/browse')} className="px-6 py-3 bg-apple-black text-white rounded-[980px] font-medium hover:bg-[#333333] transition-colors">
+                  Browse Skills
+                </button>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {aiMatches.slice(0, 3).map((match, i) => (
-                  <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-3">
-                        <img src={match.avatar} alt={match.name} className="w-12 h-12 rounded-full border border-gray-100" />
-                        <div className={`px-2 py-1 rounded-md text-xs font-bold ${match.matchScore >= 90 ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
-                          {match.matchScore}% Match
-                        </div>
-                      </div>
-                      <h3 className="font-bold text-gray-900">{match.name}</h3>
-                      <p className="text-xs text-gray-500 mb-3">{match.college}</p>
-                      <p className="text-xs text-gray-600 bg-gray-50 p-2 rounded-lg italic line-clamp-2">"{match.matchReason}"</p>
-                    </div>
-                    <button onClick={() => navigate(`/profile/${match.id}`)} className="mt-4 w-full py-2 bg-gray-50 hover:bg-violet-50 text-violet-600 font-medium rounded-xl text-sm transition-colors border border-gray-100 hover:border-violet-200">
-                      View & Connect
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Active Exchanges */}
-            <motion.section variants={fadeUp} initial="hidden" animate="visible">
-              <div className="flex justify-between items-end mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Active Exchanges</h2>
-              </div>
-              {exchanges.filter(ex => ex.status === 'active').length === 0 ? (
-                <div className="bg-white p-8 rounded-2xl border border-gray-100 text-center">
-                  <p className="text-gray-500 mb-4">No active exchanges yet. Start by browsing skills!</p>
-                  <button onClick={() => navigate('/browse')} className="px-6 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-bold hover:shadow-md transition">
-                    Browse Skills
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {exchanges.filter(ex => ex.status === 'active').map((ex) => {
-                    const partner = ex.user1Id === user?.id ? ex.user2 : ex.user1;
-                    const me = ex.user1Id === user?.id ? ex.user1 : ex.user2;
-                    return (
-                      <div key={ex.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center -space-x-2">
-                            <img src={me?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${me?.username}`} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" alt="" />
-                            <img src={partner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${partner?.username}`} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" alt="" />
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-gray-900">{partner?.name || 'Partner'}</h3>
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="px-2.5 py-1 bg-violet-100 text-violet-700 text-xs font-bold rounded-lg">{ex.user1Skill}</span>
-                              <ArrowRight className="w-3 h-3 text-gray-400" />
-                              <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg">{ex.user2Skill}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex-1 w-full sm:w-auto px-4">
-                          <div className="flex justify-between text-xs font-medium text-gray-500 mb-2">
-                            <span>Progress</span>
-                            <span>{ex.progress}%</span>
-                          </div>
-                          <div className="w-full bg-gray-100 rounded-full h-2 mb-2 overflow-hidden">
-                            <div className="bg-gradient-to-r from-violet-500 to-indigo-500 h-2 rounded-full" style={{ width: `${ex.progress}%` }}></div>
-                          </div>
-                          <p className="text-xs text-gray-500 text-center">{ex.sessionsCompleted} of {ex.totalSessions} sessions completed</p>
-                        </div>
-
-                        <div className="flex gap-2 w-full sm:w-auto">
-                          <button onClick={() => navigate(`/exchange/${ex.id}`)} className="flex-1 sm:flex-none px-5 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all">
-                            Open Exchange
-                          </button>
-                          <button onClick={() => navigate('/chat')} className="flex-1 sm:flex-none px-5 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
-                            <MessageSquare className="w-4 h-4" /> Chat
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </motion.section>
-
-          </div>
-
-          {/* Sidebar Area */}
-          <div className="space-y-8">
-            
-            {/* Pending Requests */}
-            <motion.section variants={fadeUp} initial="hidden" animate="visible" className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-bold text-gray-900">Pending Requests</h2>
-                <button onClick={() => navigate('/requests')} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">View All</button>
-              </div>
-              
+            ) : (
               <div className="space-y-4">
-                {pendingIncoming.length === 0 && <p className="text-sm text-gray-500">No pending requests.</p>}
-                {pendingIncoming.slice(0, 3).map((req, i) => (
-                  <div key={i} className="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-3">
-                        <img src={req.fromUser.avatar} className="w-10 h-10 rounded-full" />
+                {exchanges.filter(ex => ex.status === 'active').map((ex) => {
+                  const partner = ex.user1Id === user?.id ? ex.user2 : ex.user1;
+                  const me = ex.user1Id === user?.id ? ex.user1 : ex.user2;
+                  return (
+                    <div key={ex.id} className="bg-white rounded-[18px] border border-apple-border p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="flex items-center gap-4 min-w-[200px]">
+                        <div className="flex items-center -space-x-2">
+                          <img src={me?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${me?.username}`} className="w-12 h-12 rounded-full border border-apple-border" alt="" />
+                          <img src={partner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${partner?.username}`} className="w-12 h-12 rounded-full border border-apple-border" alt="" />
+                        </div>
                         <div>
-                          <h4 className="font-bold text-gray-900 text-sm">{req.fromUser.name}</h4>
-                          <p className="text-xs text-gray-500">{new Date(req.createdAt).toLocaleDateString()}</p>
+                          <h3 className="font-semibold text-apple-black">{partner?.name || 'Partner'}</h3>
+                          <p className="text-[14px] text-apple-gray">{ex.user1Skill} ↔ {ex.user2Skill}</p>
                         </div>
                       </div>
+
+                      <div className="flex-1 w-full px-4">
+                        <div className="flex justify-between text-[12px] font-medium text-apple-gray uppercase tracking-[0.08em] mb-2">
+                          <span>Progress</span>
+                          <span>{ex.progress}%</span>
+                        </div>
+                        <div className="w-full bg-apple-bg border border-apple-border rounded-[980px] h-3 overflow-hidden">
+                          <div className="bg-apple-black h-full rounded-[980px]" style={{ width: `${ex.progress}%` }}></div>
+                        </div>
+                        <p className="text-[12px] text-apple-gray text-center mt-2">{ex.sessionsCompleted} of {ex.totalSessions} sessions completed</p>
+                      </div>
+
+                      <div className="flex gap-3 w-full md:w-auto">
+                        <button onClick={() => navigate(`/exchange/${ex.id}`)} className="flex-1 px-6 py-2 border border-apple-black text-apple-black rounded-[980px] text-[14px] font-medium hover:bg-apple-bg transition-colors whitespace-nowrap">
+                          Open
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-600 mb-3 bg-gray-50 p-2 rounded line-clamp-2">"{req.message}"</p>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Pending Requests */}
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-[28px] font-semibold text-apple-black tracking-[-0.01em]">Requests</h2>
+              <button onClick={() => navigate('/requests')} className="text-[14px] font-medium text-apple-gray hover:text-apple-black">View All</button>
+            </div>
+            
+            <div className="bg-white rounded-[18px] border border-apple-border p-6">
+              <div className="space-y-6">
+                {pendingIncoming.length === 0 && <p className="text-[17px] text-apple-gray">No pending requests.</p>}
+                {pendingIncoming.slice(0, 3).map((req, i) => (
+                  <div key={i} className="border-b border-apple-border last:border-0 pb-6 last:pb-0">
+                    <div className="flex items-center gap-3 mb-3">
+                      <img src={req.fromUser.avatar} className="w-10 h-10 rounded-full border border-apple-border" />
+                      <div>
+                        <h4 className="font-semibold text-apple-black text-[14px]">{req.fromUser.name}</h4>
+                        <p className="text-[12px] text-apple-gray uppercase tracking-[0.08em]">{new Date(req.createdAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                    <p className="text-[14px] text-apple-gray mb-4 line-clamp-2 leading-relaxed">"{req.message}"</p>
                     <div className="flex gap-2">
-                      <button className="flex-1 py-1.5 bg-green-50 hover:bg-green-100 text-green-700 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-colors">
-                        <CheckCircle className="w-3 h-3" /> Accept
+                      <button className="flex-1 py-2 bg-apple-black text-white rounded-[980px] text-[14px] font-medium hover:bg-[#333333] transition-colors">
+                        Accept
                       </button>
-                      <button className="flex-1 py-1.5 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-gray-600 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-colors">
-                        <XCircle className="w-3 h-3" /> Decline
+                      <button className="flex-1 py-2 bg-transparent border border-apple-black text-apple-black rounded-[980px] text-[14px] font-medium hover:bg-apple-bg transition-colors">
+                        Decline
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
-            </motion.section>
-
+            </div>
           </div>
+
         </div>
       </main>
     </div>

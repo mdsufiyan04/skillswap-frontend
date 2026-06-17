@@ -60,8 +60,8 @@ const Chat = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F7FF]">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin w-8 h-8 border-4 border-apple-black border-t-transparent rounded-full"></div>
       </div>
     );
   }
@@ -69,21 +69,21 @@ const Chat = () => {
   const partner = selectedExchange ? getPartner(selectedExchange) : null;
 
   return (
-    <div className="min-h-screen bg-[#F8F7FF] flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans text-apple-black">
       <Navbar />
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex gap-6 h-[calc(100vh-64px)]">
-        <div className={`w-full md:w-1/3 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col ${!isMobileList && 'hidden md:flex'}`}>
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Messages</h2>
+        <div className={`w-full md:w-1/3 bg-white rounded-[24px] border border-apple-border flex flex-col ${!isMobileList && 'hidden md:flex'}`}>
+          <div className="p-6 border-b border-apple-border">
+            <h2 className="text-[24px] font-semibold text-apple-black mb-4 tracking-[-0.01em]">Messages</h2>
             <div className="relative">
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-              <input type="text" placeholder="Search chats..." className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-apple-gray" />
+              <input type="text" placeholder="Search chats..." className="w-full pl-10 pr-4 py-3 bg-apple-bg border border-apple-border rounded-[12px] text-[14px] focus:outline-none focus:border-apple-black transition-colors placeholder-apple-gray" />
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto p-2">
+          <div className="flex-1 overflow-y-auto p-3">
             {exchanges.length === 0 ? (
-              <div className="text-center py-12 px-4 text-gray-500 text-sm">No active exchanges yet</div>
+              <div className="text-center py-12 px-4 text-apple-gray text-[14px]">No active exchanges yet</div>
             ) : (
               exchanges.map((exchange) => {
                 const chatPartner = getPartner(exchange);
@@ -93,14 +93,14 @@ const Chat = () => {
                   <div
                     key={exchange.id}
                     onClick={() => { setSelectedExchange(exchange); setIsMobileList(false); }}
-                    className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-colors ${selectedExchange?.id === exchange.id ? 'bg-violet-50 border border-violet-100' : 'hover:bg-gray-50 border border-transparent'}`}
+                    className={`flex items-center gap-4 p-4 rounded-[16px] cursor-pointer transition-colors ${selectedExchange?.id === exchange.id ? 'bg-apple-bg border border-apple-border' : 'hover:bg-apple-bg border border-transparent'}`}
                   >
-                    <img src={chatPartner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${chatPartner?.username}`} className="w-12 h-12 rounded-full border border-gray-100" alt="" />
+                    <img src={chatPartner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${chatPartner?.username}`} className="w-12 h-12 rounded-full border border-apple-border" alt="" />
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-baseline mb-1">
-                        <h4 className="font-bold text-gray-900 truncate">{chatPartner?.name}</h4>
+                        <h4 className="font-semibold text-apple-black truncate text-[14px]">{chatPartner?.name}</h4>
                       </div>
-                      <p className="text-xs text-violet-600 truncate">{mySkill} ↔ {theirSkill}</p>
+                      <p className="text-[12px] text-apple-gray uppercase tracking-[0.08em] truncate font-medium">{mySkill} ↔ {theirSkill}</p>
                     </div>
                   </div>
                 );
@@ -109,48 +109,48 @@ const Chat = () => {
           </div>
         </div>
 
-        <div className={`flex-1 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col ${isMobileList && 'hidden md:flex'}`}>
+        <div className={`flex-1 bg-white rounded-[24px] border border-apple-border flex flex-col ${isMobileList && 'hidden md:flex'}`}>
           {!selectedExchange ? (
-            <div className="flex-1 flex items-center justify-center text-gray-400 flex-col gap-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
-                <MessageSquare className="w-8 h-8 text-gray-300" />
+            <div className="flex-1 flex items-center justify-center text-apple-gray flex-col gap-4">
+              <div className="w-16 h-16 bg-apple-bg rounded-[18px] flex items-center justify-center border border-apple-border">
+                <MessageSquare className="w-8 h-8 text-apple-gray" />
               </div>
-              Select a conversation
+              <span className="text-[14px] uppercase tracking-[0.08em] font-medium">Select a conversation</span>
             </div>
           ) : (
             <>
-              <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <button onClick={() => setIsMobileList(true)} className="md:hidden p-2 text-gray-500 hover:bg-gray-50 rounded-lg">
+              <div className="p-6 border-b border-apple-border flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <button onClick={() => setIsMobileList(true)} className="md:hidden p-2 text-apple-gray hover:text-apple-black rounded-lg">
                     <ArrowLeft className="w-5 h-5" />
                   </button>
-                  <img src={partner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${partner?.username}`} className="w-10 h-10 rounded-full" alt="" />
+                  <img src={partner?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${partner?.username}`} className="w-10 h-10 rounded-full border border-apple-border" alt="" />
                   <div>
-                    <h3 className="font-bold text-gray-900">{partner?.name}</h3>
-                    <p className="text-xs text-violet-600 font-medium">
+                    <h3 className="font-semibold text-apple-black text-[17px]">{partner?.name}</h3>
+                    <p className="text-[12px] text-apple-gray uppercase tracking-[0.08em] font-medium mt-1">
                       Exchange: {selectedExchange.user1Id === user?.id ? selectedExchange.user1Skill : selectedExchange.user2Skill} ↔ {selectedExchange.user1Id === user?.id ? selectedExchange.user2Skill : selectedExchange.user1Skill}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 {messages.length === 0 ? (
-                  <p className="text-center text-gray-400 text-sm py-8">No messages yet. Start the conversation!</p>
+                  <p className="text-center text-apple-gray text-[14px] py-8">No messages yet. Start the conversation!</p>
                 ) : (
                   messages.map((msg) => {
                     const isMe = msg.senderId === user?.id;
                     const sender = msg.senderId === selectedExchange.user1Id ? selectedExchange.user1 : selectedExchange.user2;
                     return (
-                      <div key={msg.id} className={`flex gap-2 ${isMe ? 'flex-row-reverse' : 'flex-row'}`}>
+                      <div key={msg.id} className={`flex gap-3 ${isMe ? 'flex-row-reverse' : 'flex-row'}`}>
                         {!isMe && (
-                          <img src={sender?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${sender?.username}`} className="w-8 h-8 rounded-full flex-shrink-0" alt="" />
+                          <img src={sender?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${sender?.username}`} className="w-8 h-8 rounded-full flex-shrink-0 border border-apple-border" alt="" />
                         )}
                         <div className={`flex flex-col max-w-[75%] ${isMe ? 'items-end' : 'items-start'}`}>
-                          <div className={`px-4 py-2.5 rounded-2xl text-sm ${isMe ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-tr-sm' : 'bg-white border border-gray-100 text-gray-800 rounded-tl-sm shadow-sm'}`}>
+                          <div className={`px-5 py-3 rounded-[18px] text-[14px] leading-relaxed ${isMe ? 'bg-apple-black text-white rounded-tr-[4px]' : 'bg-apple-bg border border-apple-border text-apple-black rounded-tl-[4px]'}`}>
                             {msg.text}
                           </div>
-                          <span className="text-[10px] text-gray-400 mt-1">{formatTime(msg.createdAt)}</span>
+                          <span className="text-[10px] text-apple-gray uppercase tracking-[0.08em] mt-2 font-medium">{formatTime(msg.createdAt)}</span>
                         </div>
                       </div>
                     );
@@ -159,22 +159,22 @@ const Chat = () => {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="p-4 border-t border-gray-100 bg-white rounded-b-3xl">
-                <div className="flex items-end gap-2">
-                  <button className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
+              <div className="p-4 border-t border-apple-border bg-white rounded-b-[24px]">
+                <div className="flex items-end gap-3">
+                  <button className="p-3 text-apple-gray hover:text-apple-black transition-colors rounded-full hover:bg-apple-bg">
                     <Paperclip className="w-5 h-5" />
                   </button>
-                  <div className="flex-1 bg-gray-50 border border-gray-200 rounded-2xl px-4 py-2 flex items-center focus-within:ring-2 focus-within:ring-violet-500 focus-within:border-transparent transition-all">
+                  <div className="flex-1 bg-apple-bg border border-apple-border rounded-[18px] px-4 py-2 flex items-center focus-within:border-apple-black transition-colors">
                     <textarea
                       placeholder="Type your message..."
-                      className="w-full bg-transparent border-none outline-none resize-none max-h-32 text-sm text-gray-700 py-1"
+                      className="w-full bg-transparent border-none outline-none resize-none max-h-32 text-[14px] text-apple-black py-2 placeholder-apple-gray"
                       rows="1"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
                     ></textarea>
                   </div>
-                  <button onClick={handleSend} className="p-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl shadow-md hover:shadow-lg transition-all">
+                  <button onClick={handleSend} className="p-4 bg-apple-black text-white rounded-full hover:bg-[#333333] transition-colors flex items-center justify-center">
                     <Send className="w-5 h-5" />
                   </button>
                 </div>

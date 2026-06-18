@@ -24,7 +24,7 @@ You can use these accounts to test the platform immediately without registering:
 > - Try the group chat, schedule a session, add tasks
 > - Go to Projects → post a project → apply from other account
 
-## ⚡ Quick Start (for judges)
+## ⚡ Quick Start 
 
 1. Visit https://skillswap-frontend-8nuj.vercel.app/
 2. Login with test credentials above

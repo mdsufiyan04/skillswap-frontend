@@ -1,293 +1,164 @@
-# Elevate
+# Elevate — Peer-to-Peer Skill Exchange Platform
 
-*The skills economy, reimagined.*
+> Exchange skills, grow together. Elevate connects people who want to teach what they know and learn what they don't — completely free.
 
-Elevate (formerly SkillSwap) is a peer-to-peer skill exchange platform where users trade knowledge instead of money — teach what you know, learn what you don't. Built for SDC Round 2 submission and as an IDP college project.
+![Elevate](https://skillswap-frontend-8nuj.vercel.app/)
 
-> 🚧 **Live deployment in progress.** Links below will be added once Vercel and Render deployments are complete.
+## 🧪 Test Credentials
 
-- **Live App:** _coming soon_
-- **Backend API:** _coming soon_
-- **Frontend Repo:** https://github.com/mdsufiyan04/skillswap-frontend (this repo)
-- **Backend Repo:** https://github.com/mdsufiyan04/skillswap-backend
+You can use these accounts to test the platform immediately without registering:
 
----
+**Account 1 — Testuser5**
+- Email: **testuser5@gmail.com**
+- Password: **56311400**
 
-## What is Elevate?
+**Account 2 — Testuser6**
+- Email: **testuser6@gmail.com**
+- Password: **56311400**
 
-Most people have skills worth teaching and skills they want to learn. Elevate connects them directly — no payment, no middleman. Find someone who wants to learn what you teach and teaches what you want to learn, send a request, and once accepted you get a full shared workspace to run the exchange: scheduling, video calls, resources, chat, and reviews.
+> **Tip for testing the full flow:**
+> Open Account 1 in Chrome and Account 2 in Edge/Firefox at the same time.
+> - Browse skills → send a request from one account
+> - Accept the request from the other account
+> - Both accounts get access to the Exchange Workspace
+> - Try the group chat, schedule a session, add tasks
+> - Go to Projects → post a project → apply from other account
 
-Beyond 1:1 exchanges, Elevate also has a **Projects** module — post a project idea, define roles you need filled, let people apply, and run the whole collaboration (team chat, Kanban tasks, project wall) inside the platform.
+## ⚡ Quick Start (for judges)
 
-## Screenshots
+1. Visit https://skillswap-frontend-8nuj.vercel.app/
+2. Login with test credentials above
+3. Go to **Browse** → search any skill
+4. Click **View Profile** → **Request Exchange**
+5. Switch to Account 2 → **Requests** → **Accept**
+6. Both accounts now have access to **Exchange Workspace**
+7. Try **Projects** tab → Post a project → Apply from other account
 
-| Landing Page | Dashboard | Browse Skills |
-|---|---|---|
-| _[add screenshot]_ | _[add screenshot]_ | _[add screenshot]_ |
+## 🚀 Live Demo
 
-| Exchange Workspace | Chat | Projects |
-|---|---|---|
-| _[add screenshot]_ | _[add screenshot]_ | _[add screenshot]_ |
+- **Frontend:** https://skillswap-frontend-8nuj.vercel.app/
+- **Backend API:** https://skillswap-backend-jx0y.onrender.com/api/health
 
-> Demo GIF: _[add link or embed here]_
+## 📌 What it Does
 
----
+Elevate is a full-stack peer-to-peer skill exchange platform where users can:
 
-## Features
+- Create a profile and list skills they **offer** and **want to learn**
+- Browse skills from other users with **search and category filters**
+- Get **AI-powered match scores** showing compatibility with other users
+- Send and receive **skill exchange requests** with a message
+- Accept requests to start an **active exchange**
+- **Chat** with exchange partners in real time
+- Schedule sessions and track **exchange progress**
+- Post and collaborate on **projects** — find contributors with matching skills
+- Leave **reviews and ratings** after completed exchanges
 
-### Authentication
-- Register with name, email, password, username, and college
-- JWT-based login (7-day token expiry)
-- Protected routes that redirect to login if unauthenticated
-- Logout clears local session
-
-### Skills
-- Add skills you **offer** (highlighted green) or **want** (highlighted blue)
-- Categorize by name, category, level, and description
-- Delete skills you've added
-
-### Browse
-- Search by skill name
-- Filter by category and type (offer/want)
-- View any user's real profile
-- Send a request directly from a skill card
-
-### Requests
-- Send a request with a custom message
-- Incoming and Outgoing tabs to track both directions
-- Accept a request → automatically creates an Exchange
-- Decline requests you're not interested in
-
-### Exchange Workspace
-- Full collaborative workspace per exchange, organized into tabs:
-  - **Overview** — progress tracking, session count, next session scheduling
-  - Auto-generated Google Meet link for sessions
-  - **Resources** — shared links between both users
-  - **Chat** — real-time-feeling chat (3-second polling) pulled from the backend
-  - **Reviews** — leave a rating and review after completion
-- Mark sessions complete and end the exchange when finished
-
-### Chat
-- Real messages persisted via the backend, refreshed every 3 seconds
-- Auto-scrolls to the latest message
-- Sidebar lists all active exchanges
-- Visually distinct bubbles for sent (black) vs received (white) messages
-
-### Profiles
-- **Public profile** — real user data, skills offered/wanted, reviews, and rating, with a "Request Exchange" button
-- **My Profile** — separate add buttons for Offer vs Want skills, inline editable profile fields, a profile-completion progress bar, and real skills/reviews pulled from the database
-
-### Projects
-- Browse projects with search and category/stage filters
-- Post a project with defined roles and skills needed
-- Project detail page with four tabs: Overview, Team, Workspace, Resources
-- Apply to a role with a contribution-level and message
-- Project admin can accept or decline applications
-- Group chat for the project team (3-second polling)
-- Kanban-style task board (To Do / In Progress / Done)
-- Project Wall for posting updates
-- **My Projects** page split into Created, Contributing, and Applied
-
----
-
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18 + Vite + Tailwind CSS v3 |
+| Frontend | React 18 + Vite |
+| Styling | Tailwind CSS v3 |
 | Animations | Framer Motion |
 | Routing | React Router DOM v6 |
 | HTTP Client | Axios |
 | Backend | Node.js + Express.js |
 | ORM | Prisma |
 | Database | PostgreSQL (Supabase) |
-| Auth | JWT + bcryptjs |
-| Deployment | Vercel (frontend) + Render (backend) |
+| Authentication | JWT + bcryptjs |
+| Frontend Deploy | Vercel |
+| Backend Deploy | Render |
 
-## Design System
+## 📁 Project Structure
+Frontend (skillswap-frontend)
 
-Elevate's UI follows a deliberately minimal, high-contrast aesthetic inspired by Apple, Linear, and Vercel:
-
-- **Background:** `#FFFFFF` and `#F5F5F7`
-- **Text:** `#1D1D1F` (primary) and `#6E6E73` (secondary)
-- **Buttons:** Black pill-shaped buttons only
-- **Cards:** White with a 1px `#D2D2D7` border, no shadows
-- **Typography:** Inter, tight letter-tracking
-- **Motion:** Framer Motion fade-up and stagger animations, with floating animated cards on the hero section
-
----
-
-## Project Structure
-
-```
-peer/
-├── skillswap-frontend/     → React frontend (this repo)
-└── skillswap-backend/      → Node.js + Express backend
-```
-
-**Frontend**
-```
-skillswap-frontend/
 ├── src/
-│   ├── pages/            # Landing, Auth, Dashboard, Browse, Profile, Exchange, Projects, etc.
-│   ├── components/       # navbar, cards, ui, chat
-│   ├── context/          # AuthContext, ThemeContext
-│   ├── api/               # axios instance + service functions
-│   └── data/              # dummy data (dev/testing)
-```
 
-**Backend**
-```
-skillswap-backend/
+│   ├── pages/          # 14 pages
+
+│   ├── components/     # Navbar, Cards, UI
+
+│   ├── context/        # Auth Context
+
+│   ├── api/            # Axios + Services
+
+│   └── data/           # Dummy data fallback
+Backend (skillswap-backend)
+
 ├── prisma/
-│   └── schema.prisma
+
+│   └── schema.prisma   # 13 DB models
+
 ├── src/
-│   ├── routes/            # auth, users, skills, requests, exchanges, projects
-│   ├── middleware/         # authMiddleware
-│   └── app.js
-```
 
----
+│   ├── routes/         # 6 route files
 
-## Database Schema
+│   ├── middleware/     # JWT auth guard
 
-PostgreSQL via Supabase, modeled with Prisma. 13 models across two domains:
+│   └── app.js          # Express server
+## ⚙️ How to Run Locally
 
-**Core**
-- `User` — profile, college, rating, completed exchange count
-- `Skill` — name, category, level, type (offer/want)
-- `Request` — connects two users over a skill, with status (pending/accepted/rejected)
-- `Exchange` — created when a request is accepted; tracks progress, sessions, status
-- `Message` — chat messages scoped to an exchange
-- `Review` — post-exchange rating and feedback
+### Prerequisites
+- Node.js v18+
+- PostgreSQL database (or Supabase account)
 
-**Projects**
-- `Project` — title, tagline, description, category, stage, links (GitHub/Figma/demo/site)
-- `ProjectRole` — open roles with required skills
-- `ProjectApplication` — application to a role with message and contribution level
-- `ProjectMember` — confirmed team members
-- `ProjectMessage` — team group chat
-- `ProjectPost` — project wall updates
-- `ProjectTask` — Kanban task tracking
-
----
-
-## API Reference
-
-**Auth**
-```
-POST   /api/auth/register
-POST   /api/auth/login
-```
-
-**Users**
-```
-GET    /api/users/me
-PUT    /api/users/me
-GET    /api/users/:id
-GET    /api/users
-```
-
-**Skills**
-```
-GET    /api/skills
-POST   /api/skills
-DELETE /api/skills/:id
-```
-
-**Requests**
-```
-POST   /api/requests
-GET    /api/requests
-PUT    /api/requests/:id
-```
-
-**Exchanges**
-```
-GET    /api/exchanges
-GET    /api/exchanges/:id
-PUT    /api/exchanges/:id/progress
-POST   /api/exchanges/:id/messages
-GET    /api/exchanges/:id/messages
-POST   /api/exchanges/:id/reviews
-```
-
-**Projects**
-```
-GET    /api/projects
-GET    /api/projects/:id
-POST   /api/projects
-PUT    /api/projects/:id
-DELETE /api/projects/:id
-POST   /api/projects/:id/apply
-GET    /api/projects/:id/applications
-PUT    /api/projects/:id/applications/:appId
-GET    /api/projects/:id/messages
-POST   /api/projects/:id/messages
-POST   /api/projects/:id/posts
-GET    /api/projects/:id/tasks
-POST   /api/projects/:id/tasks
-PUT    /api/projects/:id/tasks/:taskId
-GET    /api/projects/my/projects
-```
-
----
-
-## Running Locally
-
-**Prerequisites:** Node.js, a PostgreSQL database (or Supabase project), npm
-
-**1. Clone both repos**
+### Backend Setup
 ```bash
-git clone https://github.com/mdsufiyan04/skillswap-frontend.git
 git clone https://github.com/mdsufiyan04/skillswap-backend.git
-```
-
-**2. Backend setup**
-```bash
 cd skillswap-backend
 npm install
-```
-Create a `.env` file:
-```
-DATABASE_URL="your-postgresql-connection-string"
-JWT_SECRET="your-secret-key"
-PORT=5000
-```
-```bash
-npx prisma generate
-npx prisma migrate deploy
-npm run dev
-```
 
-**3. Frontend setup**
-```bash
+Create .env file:
+DATABASE_URL="your_postgresql_connection_string"
+JWT_SECRET="your_secret_key"
+PORT=5000
+
+bashnpx prisma db push
+npx prisma generate
+npm run dev
+
+Backend runs on http://localhost:5000
+
+Frontend Setup
+git clone https://github.com/mdsufiyan04/skillswap-frontend.git
 cd skillswap-frontend
 npm install
-```
-Create a `.env` file:
-```
-VITE_API_URL="http://localhost:5000"
-```
-```bash
+
+Create .env file:
+VITE_API_URL=http://localhost:5000/api
+
 npm run dev
-```
 
----
+Frontend runs on http://localhost:5173
+🔌 API Endpoints
+MethodEndpointAuthDescriptionPOST/api/auth/registerNoRegister userPOST/api/auth/loginNoLogin + JWT tokenGET/api/users/meYesGet my profilePUT/api/users/meYesUpdate profileGET/api/users/:idNoGet user profileGET/api/skillsNoBrowse all skillsPOST/api/skillsYesAdd a skillDELETE/api/skills/:idYesDelete skillPOST/api/requestsYesSend requestGET/api/requestsYesMy requestsPUT/api/requests/:idYesAccept/rejectGET/api/exchangesYesMy exchangesPOST/api/exchanges/:id/messagesYesSend messageGET/api/exchanges/:id/messagesYesGet messagesPOST/api/exchanges/:id/reviewsYesLeave reviewGET/api/projectsNoBrowse projectsPOST/api/projectsYesCreate projectPOST/api/projects/:id/applyYesApply to projectPUT/api/projects/:id/applications/:appIdYesAccept/reject application
+🗄 Database Schema
+13 models: User, Skill, Request, Exchange, Message, Review, Project, ProjectRole, ProjectApplication, ProjectMember, ProjectMessage, ProjectPost, ProjectTask
+✨ Key Features
+AI-Powered Matching
 
-## Author
+Dashboard shows match scores and reasons for compatible users based on complementary skills.
+Complete Exchange Lifecycle
 
-**Mohammed Sufiyan**
- USN: 1MJ25IS029
+Request → Accept → Exchange Workspace → Schedule Sessions → Chat → Mark Complete → Review
+Projects Feature
 
----
+Post projects, define open roles with required skills, accept contributors, collaborate in team workspace with group chat and kanban board.
+Real-time Chat
 
-## Roadmap
+Messages stored in PostgreSQL, polled every 3 seconds for near real-time experience.
+🔮 What I Would Improve With More Time
 
-- [x] Core skill exchange flow (skills, requests, exchanges, chat, reviews)
-- [x] Projects module (roles, applications, team chat, tasks, wall)
-- [x] Elevate UI redesign (black/white premium design system)
-- [ ] Deploy frontend to Vercel
-- [ ] Deploy backend to Render
-- [ ] Live deployment testing
-- [ ] SDC submission
+WebSocket real-time chat instead of polling
+Google OAuth login
+Mobile app with React Native
+Video call integration for sessions
+Gemini AI for real skill matching scores
+Email notifications for requests
+Advanced search with skill graph recommendations
+
+👨‍💻 Developer
+Mohammed Sufiyan
+
+GitHub: mdsufiyan04
+College: MVJ College of Engineering, Bengaluru
